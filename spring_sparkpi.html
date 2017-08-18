@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-94133700-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Spring Boot SparkPi</title>
+
+    <!-- PatternFly -->
+    <link rel="stylesheet" href="./bower_components/patternfly/dist/css/patternfly.min.css">
+    <link rel="stylesheet" href="./bower_components/patternfly/dist/css/patternfly-additions.min.css">
+
+    <link rel="stylesheet" href="./css/radanalytics.css">
+
+    <link rel="stylesheet" type="text/css" href="./css/clippy.css" media="all">
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <img id="brand" src="./img/brand-radanalytics.svg" alt="radanalytics logo">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-utility hidden-xs">
+            <li>
+              <a href="https://github.com/radanalyticsio/radanalyticsio.github.io" target="blank">Edit me on GitHub</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-primary">
+            <li class="active">
+  <a href="#">Spring Boot SparkPi</a>
+</li>
+
+
+<li>
+  <a href="./assets/spring_sparkpi/lightning" target="blank">Lightning Talk &nbsp;
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+</li>
+
+
+<li>
+  <a href="./tutorials">Back to tutorials</a>
+</li>
+
+          </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="contents">
+        <h4>Contents</h4>
+        <a href="#introduction">Introduction</a></br>
+        <a href="#architecture">Architecture</a></br>
+        <a href="#installation">Installation</a></br>
+        <a href="#usage">Usage</a></br>
+        <a href="#expansion">Expansion</a></br>
+        <a href="#videos">Videos</a></br>
+      </div>
+    </div>
+    <div class="col-md-10" id="documents">
+      <div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The spring-sparkpi application provides an example of how to combine the
+power of Apache Spark with the flexibility of the
+<a href="https://spring.io/">Spring Boot framework</a> to create an HTTP microservice
+that will deliver an approximation of <a href="https://en.wikipedia.org/wiki/Pi">Pi</a>
+on request. The core of the processing for this application is based directly
+on the
+<a href="https://spark.apache.org/examples.html">Java Pi Estimation example</a>
+(<a href="https://github.com/apache/spark/blob/master/examples/src/main/java/org/apache/spark/examples/JavaSparkPi.java">source</a>)
+from the upstream Apache Spark project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This application&#8217;s architecture is quite straighforward. The source code
+repository is constructed to build a
+<a href="https://github.com/openshift/source-to-image">source-to-image</a>
+deployment for OpenShift. Once built, OpenShift will deploy the driver
+application pod and then it will automatically deploy an Apache Spark cluster
+of one master pod and one worker pod. Finally, the driver and the cluster pods
+will be connected, at which point the service will be ready for access.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation">Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Installation of this application is quite simple using the <code>oc</code> command line
+tool. Once you are logged in to your OpenShift project, follow these
+instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Follow the <a href="./get-started">Get Started</a> guide to ensure that you are
+connected to an OpenShift project with Oshinko installed</p>
+</li>
+<li>
+<p>Launch spring-sparkpi</p>
+<div class="literalblock">
+<div class="content">
+<pre>oc new-app --template oshinko-java-spark-build-dc \
+    -p APPLICATION_NAME=spring-sparkpi \
+    -p GIT_URI=https://github.com/radanalyticsio/spring-sparkpi \
+    -p APP_FILE=SparkPiBoot-0.0.1-SNAPSHOT.jar</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Expose an external route</p>
+<div class="literalblock">
+<div class="content">
+<pre>oc expose svc/spring-sparkpi</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage">Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the route exposed to your service, you can now begin making queries to
+approximate the value of Pi. This can be done with a web browser or other
+tool capable of reading HTTP, such as <code>curl</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>For example</strong></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl http://`oc get routes/spring-sparkpi --template='{{.spec.host}}'`
+Pi is rouuuughly 3.1335</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="expansion">Expansion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The algorithm to estimate Pi that is used in this application is based on the
+idea of
+<a href="https://en.wikipedia.org/wiki/Approximations_of_%CF%80#Summing_a_circle.27s_area">summing a circle&#8217;s area</a>.
+The way the code is written, it only uses two hundred thousand sample points.
+To push the workload to the limits and create a more valuable microservice
+a query parameter could be added to the URL, giving a user the ability to
+specify the number of samples to use. By increasing this number you will not
+only get a more accurate estimation, but also do some live performance
+testing of how your cluster reacts to various workloads.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="videos">Videos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="spring-sparkpi-deployment-and-usage">Spring-SparkPi deployment and usage</h3>
+<div class="paragraph">
+<p><iframe src="https://player.vimeo.com/video/213863636?title=0&byline=0&portrait=0" width="800" height="425" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- jQuery -->
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- PatternFly -->
+    <script src="./bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+    <!-- Clippy.js -->
+    <script src="./js/clippy.min.js"></script>
+
+    <!-- Clippy.js -->
+    <script src="./js/clippy-actions.js"></script>
+
+    <!-- Init script -->
+    <script type="text/javascript">
+      clippyStart();
+    </script>
+
+  </body>
+</html>

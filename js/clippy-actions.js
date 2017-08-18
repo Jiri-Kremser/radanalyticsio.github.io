@@ -6,7 +6,7 @@ var clippyStart = function() {
       agent.play('GetWizardy');
       agent.speak('Go and click on Spring Boot SparkPi tutorial.');
       agent.gestureAt(-1000,0);
-    } else if (location.href.endsWith('spring_sparkpi')) {
+    } else if (location.href.endsWith('spring_sparkpi.html')) {
       agent.speak('Congratulations!');
       agent.play('Congratulate');
       agent.speak('Now, let\'s do some real science!');

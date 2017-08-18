@@ -29,8 +29,7 @@ them to your peers and colleagues.
 
 <h1 id="applications">Applications</h1>
 
-{% assign sorted_applications = site.applications | sort: 'weight' %}
-{% for item in sorted_applications %}
+{% for item in site.applications %}
 <h2>
 <a href="/applications/{{ item.link }}">{{ item.title }}</a>
 {% for label in item.labels %}
@@ -76,3 +75,29 @@ them to your peers and colleagues.
 </ul>
 
 {% endfor %}
+
+
+
+...
+
+
+<h2>
+<a href="./spring_sparkpi.html">Spring Boot SparkPi</a>
+
+<span class="badge">Java</span>
+
+<span class="badge">S2I</span>
+
+</h2>
+
+<p>
+This source-to-image Java application combines the Apache Spark Pi estimation example with the popular Spring Boot framework. It provides an HTTP microservice which will calculate the value of Pi on demand.
+</p>
+
+<h4 id="project-links-4">Project Links</h4>
+
+<ul>
+
+<li><a href="https://github.com/radanalyticsio/spring-sparkpi" target="blank">https://github.com/radanalyticsio/spring-sparkpi</a></li>
+
+</ul>
