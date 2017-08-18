@@ -9,10 +9,11 @@
     <title>{{ page.title | default: "radanalytics.io developers" }}</title>
 
     <!-- PatternFly -->
-    <link rel="stylesheet" href="/bower_components/patternfly/dist/css/patternfly.min.css">
-    <link rel="stylesheet" href="/bower_components/patternfly/dist/css/patternfly-additions.min.css">
+    <link rel="stylesheet" href="./bower_components/patternfly/dist/css/patternfly.min.css">
+    <link rel="stylesheet" href="./bower_components/patternfly/dist/css/patternfly-additions.min.css">
 
-    <link rel="stylesheet" href="/css/radanalytics.css">
+    <link rel="stylesheet" href="./css/radanalytics.css">
+    <link rel="stylesheet" type="text/css" href="./css/clippy.css" media="all">
   </head>
   <body>
 
@@ -25,7 +26,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">
-            <img id="brand" src="/img/brand-radanalytics.svg" alt="radanalytics logo">
+            <img id="brand" src="./img/brand-radanalytics.svg" alt="radanalytics logo">
           </a>
         </div>
         <div class="collapse navbar-collapse navbar-collapse-1">
@@ -43,11 +44,22 @@
     {{ content }}
 
     <!-- jQuery -->
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- PatternFly -->
-    <script src="/bower_components/patternfly/dist/js/patternfly.min.js"></script>
+    <script src="./bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+    <!-- Clippy.js -->
+    <script src="./js/clippy.min.js"></script>
+
+    <!-- Clippy.js -->
+    <script src="./js/clippy-actions.js"></script>
+
+    <!-- Init script -->
+    <script type="text/javascript">
+      clippyStart();
+    </script>
 
   </body>
 </html>
