@@ -2,12 +2,12 @@ radanalyticsio:
   - title: Welcome
     url: /
   - title: Get Started
-    url: /get-started
+    url: ./get-started
   - title: Tutorials
-    url: /tutorials
+    url: ./tutorials
   - title: Community
-    url: /community
+    url: ./community
   - title: Projects
-    url: /projects
+    url: ./projects
   - title: FAQ
-    url: /faq
+    url: ./faq
